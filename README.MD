@@ -18,6 +18,7 @@ total kek an hour capacity: 137,500 kek an hour
 8760 hours in a year= 1204500000 kek a year... 
 
 total kek: 2409000000
+2474206900?
 
 PACKS
 bronze: common rare epic
