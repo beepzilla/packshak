@@ -35,12 +35,7 @@ export default function Navbar() {
                     <Link href="/marketplace">
                         <p>User Marketplace</p>
                     </Link>
-                    <Link href="/">
-                        <p>Game Portal</p>
-                    </Link>
-                    <Link href="/">
-                        <p>Air Drops</p>
-                    </Link>
+
                 </div>
                 <div>
                     {!address ? (
@@ -67,12 +62,6 @@ export default function Navbar() {
                         </Link>
                         <Link href="/staking">
                             <p>Staking</p>
-                        </Link>
-                        <Link href="/unstaking">
-                            <p>UnStaking</p>
-                        </Link>
-                        <Link href="/">
-                            <p>Liquidity Pool</p>
                         </Link>
                         <button
                             onClick={disconnectWallet}
