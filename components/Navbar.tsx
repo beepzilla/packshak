@@ -35,6 +35,10 @@ export default function Navbar() {
                     <Link href="/marketplace">
                         <p>User Marketplace</p>
                     </Link>
+<<<<<<< HEAD
+=======
+
+>>>>>>> new-branch-name
                 </div>
                 <div>
                     {!address ? (
