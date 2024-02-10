@@ -7,7 +7,7 @@ import { BigNumber, ethers } from "ethers";
 
 const Home: NextPage = () => {
   const address = useAddress();
-  const stakingAddress = "0x55f69326524C26cE18A122B8fD96b23446Ba8aEE";
+  const stakingAddress = "0xd778fE96C5de9331D4Dc4D0a557cA8237Ae4006c";
   const laughingheadAddress = "0xDb0BAB07577a66bE8B84080bC0E2dAF9586127D8";
   const { contract: stakingContract } = useContract(stakingAddress);
   const { data: stakedInfo, refetch: refetchStakedNFTs } = useContractRead(stakingContract, "getStakeInfo", [address]);
