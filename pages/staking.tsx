@@ -4,7 +4,6 @@ import {
   useAddress,
   useContract,
   useContractRead,
-  useContractWrite,
   useOwnedNFTs,
   useTokenBalance,
   Web3Button,
