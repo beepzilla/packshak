@@ -20,14 +20,6 @@ import {
 } from "../const/addresses";
 import styles from "../styles/Home.module.css";
 
-//TODO - Add a useEffect to load the staked token IDS as an array
-//pass tokenid array to getStakeInfoForToken for load claimable rewards
-//pass tokenid array to claimrewards
-//stake all button
-//unstake all button
-//UI upgrade, maybe grid layout for staked and unstaked, more metadat info like tier, etc
-//
-
 const Stake: NextPage = () => {
   const address = useAddress();
   const { contract: nftDropContract } = useContract(
@@ -46,18 +38,21 @@ const Stake: NextPage = () => {
   const { data: stakedTokens } = useContractRead(contract, "getStakeInfo", [
     address,
   ]);
+  
 
   useEffect(() => {
     if (!contract || !address) return;
 
-    async function loadClaimableRewards() {
-      const stakeInfo = await contract?.call("getStakeInfo", [
-        address,
-      ]);
+    const loadClaimableRewards = async () => {
+      const stakeInfo = await contract?.call("getStakeInfo", [address]);
       setClaimableRewards(stakeInfo[2]);
-    }
+    };
 
-    loadClaimableRewards();
+    loadClaimableRewards(); // Initial load
+
+    const intervalId = setInterval(loadClaimableRewards, 5000); // Set up the interval
+
+    return () => clearInterval(intervalId); // Clean up on unmount
   }, [address, contract]);
 
   async function claimRewardsForAll() {
@@ -130,12 +125,10 @@ const Stake: NextPage = () => {
             Claim Rewards
           </Web3Button>
 
-          
-
           <hr className={`${styles.divider} ${styles.spacerTop}`} />
           <h2>Your Staked NFTs</h2>
           <div className={styles.nftBoxGrid}>
-          {stakedTokens &&
+            {stakedTokens &&
               stakedTokens[0]?.map((stakedToken: BigNumber, index: any) => (
                 <NFTCard
                   tokenId={stakedToken.toNumber()}
@@ -170,7 +163,6 @@ const Stake: NextPage = () => {
                     setQuantity(parseInt(e.target.value));
                   }}
                 />
-
                 <Web3Button
                   contractAddress={STAKING_ADDRESS}
                   action={() => stakeNft(nft.metadata.id, quantity)}
@@ -183,7 +175,6 @@ const Stake: NextPage = () => {
                 <Web3Button
                   contractAddress={STAKING_ADDRESS}
                   action={() => {
-
                     stakeNft(nft.metadata.id, parseInt(nft?.quantityOwned!));
                   }}
                 >
