@@ -51,11 +51,10 @@ const Stake: NextPage = () => {
     if (!contract || !address) return;
 
     async function loadClaimableRewards() {
-      const stakeInfo = await contract?.call("getStakeInfoForToken", [
-        4,
+      const stakeInfo = await contract?.call("getStakeInfo", [
         address,
       ]);
-      setClaimableRewards(stakeInfo[1]);
+      setClaimableRewards(stakeInfo[2]);
     }
 
     loadClaimableRewards();
