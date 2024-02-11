@@ -1,29 +1,23 @@
-import {
-  ThirdwebNftMedia,
-  useContract,
-  useNFT,
-  Web3Button,
-} from "@thirdweb-dev/react";
+import { ThirdwebNftMedia, useContract, useNFT, Web3Button } from "@thirdweb-dev/react";
 import type { FC } from "react";
-import { BigNumber, ethers } from "ethers"; // Import BigNumber and ethers for formatting
-import {
-  CARD_ADDRESS,
-  STAKING_ADDRESS,
-} from "../const/addresses";
+import { useState } from "react"; // Import useState for managing input state
+import { BigNumber, ethers } from "ethers";
+import { CARD_ADDRESS, STAKING_ADDRESS } from "../const/addresses";
 import styles from "../styles/Home.module.css";
 
 interface NFTCardProps {
   tokenId: number;
-  totalQuantityStaked: BigNumber; // Assuming totalQuantityStaked is a BigNumber
+  totalQuantityStaked: BigNumber;
 }
 
 const NFTCard: FC<NFTCardProps> = ({ tokenId, totalQuantityStaked }) => {
   const { contract } = useContract(CARD_ADDRESS, "edition");
   const { data: nft } = useNFT(contract, tokenId);
+  const [withdrawQuantity, setWithdrawQuantity] = useState("1"); // State to manage withdraw quantity
 
-  // Helper function to format BigNumber to string for display
+  // Format quantity for display
   const formatQuantityStaked = (quantity: BigNumber) => {
-    return ethers.utils.formatUnits(quantity, 0); // Assuming no decimals are needed
+    return ethers.utils.formatUnits(quantity, 0);
   };
 
   return (
@@ -37,13 +31,24 @@ const NFTCard: FC<NFTCardProps> = ({ tokenId, totalQuantityStaked }) => {
             />
           )}
           <h3>{nft.metadata.name}</h3>
-          {/* Conditionally display the quantity staked if it's greater than 0 */}
           {totalQuantityStaked.gt(0) && (
             <p>Quantity Staked: {formatQuantityStaked(totalQuantityStaked)}</p>
           )}
+          <input
+            type="number"
+            min="1"
+            max={formatQuantityStaked(totalQuantityStaked)}
+            value={withdrawQuantity}
+            onChange={(e) => setWithdrawQuantity(e.target.value)}
+            style={{
+              width: "150px",
+              borderRadius: "10px",
+              margin: "5px",
+            }}
+          />
           <Web3Button
             action={(contract) =>
-              contract?.call("withdraw", [nft.metadata.id, 1])
+              contract?.call("withdraw", [nft.metadata.id, parseInt(withdrawQuantity)])
             }
             style={{
               marginBottom: "5px",
