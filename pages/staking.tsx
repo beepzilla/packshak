@@ -52,7 +52,7 @@ const Stake: NextPage = () => {
 
     async function loadClaimableRewards() {
       const stakeInfo = await contract?.call("getStakeInfoForToken", [
-        3,
+        4,
         address,
       ]);
       setClaimableRewards(stakeInfo[1]);
@@ -60,6 +60,20 @@ const Stake: NextPage = () => {
 
     loadClaimableRewards();
   }, [address, contract]);
+
+  async function claimRewardsForAll() {
+    if (!address) return;
+
+    const claimPromises = stakedTokens[0]?.map(async (stakedToken: BigNumber) => {
+      const tx = await contract?.prepare("claimRewards", [stakedToken.toNumber()]);
+      return tx?.encode();
+    });
+
+    const encodedTransactions = await Promise.all(claimPromises);
+
+    // Encode the transactions and execute them via multicall
+    await contract?.call("multicall", [encodedTransactions]);
+  }
 
   async function stakeNft(id: string, quantityToStake: Number) {
     if (!address) return;
@@ -109,11 +123,15 @@ const Stake: NextPage = () => {
           </div>
 
           <Web3Button
-            action={(contract) => contract.call("claimRewards", [3])}
             contractAddress={STAKING_ADDRESS}
+            action={async (contract) => {
+              await claimRewardsForAll();
+            }}
           >
             Claim Rewards
           </Web3Button>
+
+          
 
           <hr className={`${styles.divider} ${styles.spacerTop}`} />
           <h2>Your Staked NFTs</h2>
