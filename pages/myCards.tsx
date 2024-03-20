@@ -36,10 +36,10 @@ export default function MyCards() {
                                         <p className={styles.description}>{nft.metadata.description}</p>
                                     )}
                                     {nft.metadata.image && (
-                                        <img src={nft.metadata.image} alt={nft.metadata.name} style={{ width: '75%', height: 'auto' }} />
+                                        <img src={nft.metadata.image ?? ''} alt={`${nft.metadata.name ?? ''}`} style={{ width: '75%', height: 'auto' }} />
                                     )}
                                     {/* Displaying properties metadata */}
-                                    {nft.metadata.properties && (
+                                    {nft.metadata.properties && typeof nft.metadata.rarity === 'object' && nft.metadata.rarity !== null && (
                                         <div className={styles.properties}>
                                             <h4>Properties:</h4>
                                             {Object.entries(nft.metadata.rarity).map(([key, value], i) => (

@@ -132,7 +132,7 @@
   width: 50%;
 }
 .navLinks a {
-  color: #333;
+  color: #228B22;
   margin: 0px 10px;
   text-decoration: none;
   font-size: 1rem;
@@ -253,10 +253,10 @@
 
 .heroPage {
   width: 100%;
-  background-image: url("ipfs://QmXwvhzXUViMzfBTyTFSkNcMJKuCWV71DvpxZ2dJPP54fj/Screenshot%202024-02-03%20113330.png");
-  background-size: cover;
+  background-image: url("https://ipfs.io/ipfs/QmT2nRQSRGQdFPsstEU2z9193ccxHgkgPPrwKbXohWM69o/photo_2024-03-19_23-00-46.jpg");
+  background-size: 36%;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: 80% center;
   height: 75vh;
   border-radius: 20px;
   display: flex;

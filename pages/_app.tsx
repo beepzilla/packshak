@@ -1,4 +1,5 @@
 import type { AppProps } from "next/app";
+import Head from 'next/head';
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 import "../styles/globals.css";
 import Navbar from "../components/Navbar";
@@ -14,6 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       activeChain={activeChain}
       clientId={process.env.NEXT_PUBLIC_CLIENT_ID}
     >
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+      </Head>
       <Navbar />
       <Component {...pageProps} />
     </ThirdwebProvider>

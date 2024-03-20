@@ -30,10 +30,19 @@ export default function Navbar() {
                 </Link>
                 <div className={styles.navLinks}>
                     <Link href="/shop">
-                        <p>Shop Packs</p>
+                        <p>Buy Packs</p>
+                    </Link>
+                    <Link href="/myPacks">
+                        <p>Open Packs</p>
                     </Link>
                     <Link href="/marketplace">
-                        <p>User Marketplace</p>
+                        <p>Buy Cards</p>
+                    </Link>
+                    <Link href="/myCards">
+                        <p>My Cards</p>
+                    </Link>
+                    <Link href="/staking">
+                        <p>Staking Portal</p>
                     </Link>
                 </div>
                 <div>
@@ -53,14 +62,20 @@ export default function Navbar() {
                 </div>
                 {isProfileDropdownOpen && (
                     <div className={styles.profileDropdown}>
+                        <Link href="/shop">
+                            <p>Buy Packs</p>
+                        </Link>
                         <Link href="/myPacks">
-                            <p>My Packs</p>
+                            <p>Open Packs</p>
+                        </Link>
+                        <Link href="/marketplace">
+                            <p>Buy Cards</p>
                         </Link>
                         <Link href="/myCards">
                             <p>My Cards</p>
                         </Link>
                         <Link href="/staking">
-                            <p>Staking</p>
+                            <p>Staking Portal</p>
                         </Link>
                         <button
                             onClick={disconnectWallet}
