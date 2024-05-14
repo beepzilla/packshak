@@ -23,6 +23,8 @@ export default function MyPacks() {
     return (
         <div className={styles.container}>
             <h1>My Packs</h1>
+            <h3>this is testnet and nfts are not in final form, there are flaws and a few missing cards, thank you for your patience</h3>
+            <p>to open packs edit gaslimit in custom gas advanced menu to 1500000 (working on getting this fixed)</p>
             <div className={styles.grid}>
                 {!isLoading ? (
                     data?.map((pack, index) => (

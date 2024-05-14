@@ -112,9 +112,11 @@
 .footer {
   border-color: #222;
 }
+
 .code {
   background: #111;
 }
+
 .logo img {
   filter: invert(1);
 }
@@ -126,11 +128,14 @@
   padding: 1rem 2rem;
   color: #fff;
 }
+
 .navLinks {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   width: 50%;
 }
+
 .navLinks a {
   color: #228B22;
   margin: 0px 10px;
@@ -138,9 +143,11 @@
   font-size: 1rem;
   transition: all 0.3s ease 0s;
 }
+
 .navLinks a:hover {
   color: #0ea5e9;
 }
+
 .avatar {
   width: 42px;
   height: 42px;
@@ -150,10 +157,12 @@
   border: #0ea5e9 solid 2px;
   transition: all 0.3s ease 0s;
 }
+
 .avatar:hover {
   border: skyblue solid 2px;
   cursor: pointer;
 }
+
 .profileDropdown {
   position: absolute;
   top: 80px;
@@ -169,16 +178,18 @@
   width: 98%;
   margin: 0.5%;
 }
+
 .shopPack {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
-  background-color: white;
+  background-color: black;
   padding: 20px;
   border-radius: 10px;
   border: #eaeaea solid 2px;
 }
+
 .packInfo {
   display: flex;
   flex-direction: column;
@@ -194,6 +205,7 @@
   margin: 10px;
   border: #eaeaea solid 2px;
 }
+
 .buyButton {
   width: 100% !important;
 }
@@ -212,12 +224,12 @@
   border-radius: 10px;
   margin: 10px auto;
   border: #eaeaea solid 2px;
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
+
 .myCardInfo {
   display: flex;
   flex-direction: row;
@@ -225,13 +237,15 @@
   align-items: center;
   width: 100%;
 }
+
 .myCardInfo p {
-  color: #333;
+  color: white;
   font-size: 12px;
   border: #eaeaea solid 2px;
   padding: 5px;
   border-radius: 10px;
 }
+
 .saleButton {
   background-color: #0ea5e9 !important;
   border-radius: 4px !important;
@@ -251,19 +265,16 @@
   width: 100%;
 }
 
+/* ... (previous styles) ... */
+
 .heroPage {
   width: 100%;
-  background-image: url("https://ipfs.io/ipfs/QmT2nRQSRGQdFPsstEU2z9193ccxHgkgPPrwKbXohWM69o/photo_2024-03-19_23-00-46.jpg");
-  background-size: 36%;
-  background-repeat: no-repeat;
-  background-position: 80% center;
-  height: 75vh;
-  border-radius: 20px;
   display: flex;
   flex-direction: row;
   overflow: hidden;
   color: white;
 }
+
 .heroSection {
   width: 40%;
   display: flex;
@@ -272,9 +283,27 @@
   align-items: center;
   padding: 40px;
   text-align: center;
-  background: rgb(0,0,0);
-  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  background: rgb(0, 0, 0);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
 }
+
+.heroSection h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.heroSection p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.heroImage {
+  width: 60%;
+  background-image: url("https://ipfs.io/ipfs/QmT2nRQSRGQdFPsstEU2z9193ccxHgkgPPrwKbXohWM69o/photo_2024-03-19_23-00-46.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
 .heroButton {
   background-color: white;
   color: #1b2129;
@@ -283,6 +312,154 @@
   padding: 20px;
   border-radius: 10px;
 }
+
+@media (max-width: 768px) {
+  .heroPage {
+    flex-direction: column;
+  }
+
+  .heroSection {
+    width: 100%;
+    padding: 2rem;
+    background: #000;
+  }
+
+  .heroImage {
+    width: 100%;
+    height: 300px;
+  }
+
+  .heroSection h1 {
+    font-size: 2rem;
+  }
+
+  .heroSection p {
+    font-size: 1rem;
+  }
+
+  .heroButton {
+    padding: 15px;
+  }
+}
+
+/* ... (remaining styles) ... */
+
+
 .connectWalletBtn {
   background-color: #0ea5e9 !important;
+}
+
+.nftCard {
+  background-color: black;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px;
+  border: #eaeaea solid 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 350px;
+  overflow: hidden;
+}
+
+.mediaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  height: 300px;
+}
+
+.cardInfo {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background-color: #463F3F;
+  margin-top: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.description {
+  font-size: 12px;
+  color: white;
+  margin-top: 8px;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  max-height: none;
+  line-height: 1.4;
+}
+
+.stakingContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.stakingTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.tokensContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tokenItem {
+  background-color: black;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.tokenLabel {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.tokenValue {
+  font-size: 1.1rem;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 30px;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .navLinks {
+    position: absolute;
+    background-color: #1b2129;
+    top: 60px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    width: 100%;
+    display: none;
+    align-items: center;
+    padding: 1rem 0;
+  }
+
+  .navLinks.active {
+    display: flex;
+  }
+
+  .navbar {
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  .navbar a {
+    margin: 0.5rem 0;
+  }
 }

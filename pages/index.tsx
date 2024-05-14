@@ -7,18 +7,20 @@ const Home: NextPage = () => {
       <div className={styles.heroPage}>
         <div className={styles.heroSection}>
           <h1>Howdy!</h1>
-          <p>Buy and open packs to collect OddPepes. Collect Common, Odd, Rare, Ultra Rare, and God cards. The more Rare the more Rewards.</p>
-          <button 
+          <p>
+            Buy and open packs to collect OddPepes. Collect Common, Odd, Rare,
+            Ultra Rare, and God cards. The more Rare the more Rewards.
+          </p>
+          <button
             className={styles.heroButton}
-            onClick={() => window.location.href = "/deckGuide"}
+            onClick={() => (window.location.href = "/deckGuide")}
           >
             Deck Guide
           </button>
         </div>
-        <div>
-        </div>
+        <div className={styles.heroImage}></div>
       </div>
-    </div> 
+    </div>
   );
 };
 
