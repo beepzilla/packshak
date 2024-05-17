@@ -20,22 +20,28 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
             tokenContract: PACK_ADDRESS,
         }
     );
-
-    // Filter for active listings
-    const activeListings = packListings?.filter(listing => listing.status === "active");
-
-    const listingForToken = activeListings?.find(listing => listing.tokenId.toString() === tokenId.toString());
+    console.log("Pack Listings: ", packListings);
 
     async function buyPack() {
-        if (listingForToken) {
-            const txResult = await marketplace?.directListings.buyFromListing(
-                listingForToken.id,
+        let txResult;
+
+        if (packListings?.[tokenId]) {
+            txResult = await marketplace?.directListings.buyFromListing(
+                packListings[tokenId].id,
                 1
             );
-            return txResult;
         } else {
             throw new Error("No valid listing found");
         }
+
+        return txResult;
+    };
+
+    const mediaStyle = {
+        maxHeight: '300px',
+        width: '100%',
+        objectFit: 'contain' as 'contain',
+        borderRadius: '8px'
     };
 
     return (
@@ -46,21 +52,16 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
                         {packNFT?.metadata && (
                             <ThirdwebNftMedia
                                 metadata={packNFT.metadata}
-                                style={{
-                                    maxHeight: '300px',
-                                    width: '100%',
-                                    objectFit: 'contain',
-                                    borderRadius: '8px'
-                                }}
+                                style={mediaStyle}
                             />
                         )}
                     </div>
                     <div className={styles.packInfo}>
                         <h3>{packNFT?.metadata.name}</h3>
-                        {listingForToken ? (
+                        {packListings?.[tokenId] ? (
                             <>
-                                <p>Cost: {listingForToken.currencyValuePerToken.displayValue} {` ` + listingForToken.currencyValuePerToken.symbol}</p>
-                                <p>Supply: {listingForToken.quantity}</p>
+                                <p>Cost: {packListings[tokenId].currencyValuePerToken.displayValue} {` ` + packListings[tokenId].currencyValuePerToken.symbol}</p>
+                                <p>Supply: {packListings[tokenId].quantity}</p>
                                 {!address ? (
                                     <p>Login to buy</p>
                                 ) : (
