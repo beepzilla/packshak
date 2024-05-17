@@ -1,5 +1,6 @@
 import { MARKETPLACE_ADDRESS, PACK_ADDRESS } from "../const/addresses";
 import { ThirdwebNftMedia, Web3Button, useAddress, useContract, useDirectListings, useNFT } from "@thirdweb-dev/react";
+import { BigNumber } from "ethers";
 import styles from "../styles/Home.module.css";
 
 type Props = {
@@ -28,10 +29,14 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
 
         if (packListings?.[tokenId]) {
             try {
+                const overrides = {
+                    gasLimit: BigNumber.from("2000000")
+                };
+
                 txResult = await marketplace?.directListings.buyFromListing(
                     packListings[tokenId].id,
                     1,
-                    { gasLimit: 2000000 }  // Set a reasonable gas limit
+                    overrides
                 );
             } catch (error) {
                 console.error("Error buying pack:", error);
