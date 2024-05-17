@@ -14,26 +14,29 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
     const { contract: packContract } = useContract(contractAddress);
     const { data: packNFT, isLoading: loadingNFT } = useNFT(packContract, tokenId);
 
-    const { data: packListings, isLoading: loadingPackListings } = useDirectListings(
+
+    const { data: packListings, isLoading: loadingPackListings } = 
+    useDirectListings(
         marketplace,
         {
             tokenContract: PACK_ADDRESS,
         }
     );
-
-    const activeListings = packListings?.filter(listing => listing.status === "active");
-    const listingForToken = activeListings?.find(listing => listing.tokenId.toString() === tokenId.toString());
+    console.log("Pack Listings: ", packListings);
 
     async function buyPack() {
-        if (listingForToken) {
-            const txResult = await marketplace?.directListings.buyFromListing(
-                listingForToken.id,
+        let txResult;
+
+        if (packListings?.[tokenId]) {
+            txResult = await marketplace?.directListings.buyFromListing(
+                packListings[tokenId].id,
                 1
-            );
-            return txResult;
+            )
         } else {
             throw new Error("No valid listing found");
         }
+            
+        return txResult;
     };
 
     return (
