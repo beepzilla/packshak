@@ -2,6 +2,7 @@ import { MARKETPLACE_ADDRESS, PACK_ADDRESS } from "../const/addresses";
 import { ThirdwebNftMedia, Web3Button, useAddress, useContract, useDirectListings, useNFT } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import styles from "../styles/Home.module.css";
+import { MarketplaceV3 } from "@thirdweb-dev/contracts";
 
 type Props = {
     contractAddress: string;
@@ -33,15 +34,19 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
                     throw new Error("Marketplace contract is not loaded");
                 }
 
-                // Get the signer from the provider
+                // Get the provider and signer
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const signer = provider.getSigner();
 
-                // Connect the signer to the marketplace contract
-                const marketplaceWithSigner = marketplace.connect(signer);
+                // Create an ethers.js contract instance with the signer
+                const marketplaceWithSigner = new ethers.Contract(
+                    MARKETPLACE_ADDRESS,
+                    MarketplaceV3.abi,
+                    signer
+                );
 
                 // Call the buyFromListing method with the specified gas limit
-                const tx = await marketplaceWithSigner.directListings.buyFromListing(
+                const tx = await marketplaceWithSigner.buyFromListing(
                     packListings[tokenId].id,
                     1,
                     { gasLimit: 2000000 }
