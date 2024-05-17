@@ -36,13 +36,6 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
         }
     };
 
-    const mediaStyle = {
-        maxHeight: '300px',
-        width: '100%',
-        objectFit: 'contain' as 'contain',
-        borderRadius: '8px'
-    };
-
     return (
         <div className={styles.packCard}>
             {!loadingNFT && !loadingPackListings ? (
@@ -51,7 +44,6 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
                         {packNFT?.metadata && (
                             <ThirdwebNftMedia
                                 metadata={packNFT.metadata}
-                                style={mediaStyle}
                             />
                         )}
                     </div>
