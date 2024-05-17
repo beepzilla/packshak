@@ -50,10 +50,12 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
             {!loadingNFT && !loadingPackListings ? (
                 <div className={styles.shopPack}>
                     <div className={styles.mediaGrid}>
-                        <ThirdwebNftMedia metadata={packNFT?.metadata} style={mediaStyle} />
+                        {packNFT?.metadata && (
+                            <ThirdwebNftMedia metadata={packNFT.metadata} style={mediaStyle} />
+                        )}
                     </div>
                     <div className={styles.packInfo}>
-                        <h3>{packNFT?.metadata.name}</h3>
+                        <h3>{packNFT?.metadata?.name}</h3>
                         
                         <p>Cost: {packListings![tokenId].currencyValuePerToken.displayValue} {` ` + packListings![tokenId].currencyValuePerToken.symbol}</p>
                         <p>Supply: {packListings![tokenId].quantity}</p>
