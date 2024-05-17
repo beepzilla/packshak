@@ -29,6 +29,10 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
 
         if (packListings?.[tokenId]) {
             try {
+                if (!marketplace) {
+                    throw new Error("Marketplace contract is not loaded");
+                }
+
                 // Get the signer from the provider
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const signer = provider.getSigner();
