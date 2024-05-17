@@ -1,8 +1,6 @@
 import { MARKETPLACE_ADDRESS, PACK_ADDRESS } from "../const/addresses";
-import { ThirdwebNftMedia, Web3Button, useAddress, useContract, useDirectListings, useNFT, useSendTransaction } from "@thirdweb-dev/react";
-import { ethers } from "ethers";
+import { ThirdwebNftMedia, Web3Button, useAddress, useContract, useDirectListings, useNFT } from "@thirdweb-dev/react";
 import styles from "../styles/Home.module.css";
-import { prepareContractCall, resolveMethod } from "thirdweb";
 
 type Props = {
     contractAddress: string;
@@ -25,31 +23,24 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
     );
     console.log("Pack Listings: ", packListings);
 
-    const { mutate: sendTransaction, isLoading: isTxLoading, isError: isTxError } = useSendTransaction();
-
     async function buyPack() {
-        if (!marketplace || !packListings?.[tokenId]) {
-            throw new Error("No valid listing found or marketplace contract not loaded");
+        let txResult;
+
+        if (packListings?.[tokenId]) {
+            try {
+                txResult = await marketplace?.directListings.buyFromListing(
+                    packListings[tokenId].id,
+                    1
+                );
+                console.log("Transaction result:", txResult);
+            } catch (error) {
+                console.error("Error buying pack:", error);
+            }
+        } else {
+            throw new Error("No valid listing found");
         }
-
-        try {
-            // Prepare the contract call
-            const listing = packListings[tokenId];
-            const totalPrice = listing.currencyValuePerToken.value.mul(1);
-
-            const transaction = await prepareContractCall({
-                contract: marketplace,
-                method: resolveMethod("buyFromListing"),
-                params: [listing.id, address, 1, listing.currencyValuePerToken.currency, totalPrice]
-            });
-
-            // Send the transaction
-            const { transactionHash } = await sendTransaction(transaction);
-
-            console.log("Transaction Hash:", transactionHash);
-        } catch (error) {
-            console.error("Error buying pack:", error);
-        }
+            
+        return txResult;
     }
 
     const mediaStyle = {
@@ -79,8 +70,6 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
                             <Web3Button
                                 contractAddress={MARKETPLACE_ADDRESS}
                                 action={() => buyPack()}
-                                isLoading={isTxLoading}
-                                isError={isTxError}
                             >
                                 Buy Pack
                             </Web3Button>
