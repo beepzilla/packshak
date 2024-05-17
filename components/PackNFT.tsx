@@ -50,9 +50,9 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
             {!loadingNFT && !loadingPackListings ? (
                 <div className={styles.shopPack}>
                     <div>
-                        {packNFT?.metadata.image && (
+                        {packNFT?.metadata.animation_url && (
                             <img
-                                src={packNFT.metadata.image}
+                                src={packNFT.metadata.animation_url}
                                 alt={`${packNFT.metadata.name}`}
                                 style={mediaStyle}
                             />
