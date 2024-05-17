@@ -29,7 +29,7 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
         if (packListings?.[tokenId]) {
             txResult = await marketplace?.directListings.buyFromListing(
                 packListings[tokenId].id,
-                3
+                1
             )
         } else {
             throw new Error("No valid listing found");
