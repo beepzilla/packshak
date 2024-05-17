@@ -27,10 +27,15 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
         let txResult;
 
         if (packListings?.[tokenId]) {
-            txResult = await marketplace?.directListings.buyFromListing(
-                packListings[tokenId].id,
-                1
-            )
+            try {
+                txResult = await marketplace?.directListings.buyFromListing(
+                    packListings[tokenId].id,
+                    1,
+                    { gasLimit: 2000000 }  // Set a reasonable gas limit
+                );
+            } catch (error) {
+                console.error("Error buying pack:", error);
+            }
         } else {
             throw new Error("No valid listing found");
         }
