@@ -21,33 +21,31 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
             tokenContract: PACK_ADDRESS,
         }
     );
-    console.log("Pack Listings: ", packListings);
+    
+    const listing = packListings?.find(listing => listing.asset.id === tokenId);
 
     async function buyPack() {
-        let txResult;
-
-        if (packListings?.[tokenId]) {
-            txResult = await marketplace?.directListings.buyFromListing(
-                packListings[tokenId].id,
+        if (listing) {
+            const txResult = await marketplace?.directListings.buyFromListing(
+                listing.id,
                 1
-            )
+            );
+            return txResult;
         } else {
             throw new Error("No valid listing found");
         }
-            
-        return txResult;
     };
 
     const mediaStyle = {
         width: "100%",
         height: "300px",
-        objectFit: "contain" as "contain",
+        objectFit: "contain",
         borderRadius: "8px",
     };
 
     return (
         <div className={styles.packCard}>
-            {!loadingNFT && !loadingPackListings ? (
+            {!loadingNFT && !loadingPackListings && listing ? (
                 <div className={styles.shopPack}>
                     <div className={styles.mediaGrid}>
                         {packNFT?.metadata && (
@@ -56,9 +54,8 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
                     </div>
                     <div className={styles.packInfo}>
                         <h3>{packNFT?.metadata?.name}</h3>
-                        
-                        <p>Cost: {packListings![tokenId].currencyValuePerToken.displayValue} {` ` + packListings![tokenId].currencyValuePerToken.symbol}</p>
-                        <p>Supply: {packListings![tokenId].quantity}</p>
+                        <p>Cost: {listing.currencyValuePerToken.displayValue} {listing.currencyValuePerToken.symbol}</p>
+                        <p>Supply: {listing.quantity}</p>
                         {!address ? (
                             <p>Login to buy</p>
                         ) : (
