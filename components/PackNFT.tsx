@@ -35,7 +35,7 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
         height: "300px", // Keeping the original height
         objectFit: "contain" as const, // Ensuring objectFit is typed correctly
         borderRadius: "8px",
-        transform: "scale(1.3)", // Scaling the model up 2x
+        transform: "scale(1.1)", // Scaling the model up 2x
         transformOrigin: "center center" // Ensuring the model scales from its center
     };
 
