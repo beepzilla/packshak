@@ -39,17 +39,19 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
     };
 
     const mediaStyle = {
-        width: "100%",
-        height: "600px", // Increased height to make the model larger
-        objectFit: "contain" as "contain",
-        borderRadius: "8px",
+    width: "100%",
+    height: "300px", // Keeping the original height
+    objectFit: "contain" as "contain",
+    borderRadius: "8px",
+    transform: "scale(2)", // Scaling the model up 2x
+    transformOrigin: "center center" // Ensuring the model scales from its center
     };
-
+    
     return (
         <div className={styles.packCard}>
             {!loadingNFT && !loadingPackListings ? (
                 <div className={styles.shopPack}>
-                    <div className={styles.mediaGrid}>
+                    <div className={styles.mediaGrid} style={{ overflow: 'hidden' }}> {/* Ensuring overflow from scaling is hidden */}
                         {packNFT?.metadata && (
                             <ThirdwebNftMedia metadata={packNFT.metadata} style={mediaStyle} />
                         )}
@@ -75,5 +77,4 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
                 <p>Loading...</p>
             )}
         </div>
-    )
-};
+    );
