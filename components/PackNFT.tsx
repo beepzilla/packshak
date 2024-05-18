@@ -31,7 +31,7 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
     };
 
     const mediaStyle = {
-        width: "100%",
+        width: "300px",
         height: "300px", // Keeping the original height
         objectFit: "contain" as const, // Ensuring objectFit is typed correctly
         borderRadius: "8px",
