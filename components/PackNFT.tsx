@@ -27,21 +27,16 @@ export const PackNFTCard = ({ contractAddress, tokenId }: Props) => {
         let txResult;
 
         if (packListings?.[tokenId]) {
-            try {
-                txResult = await marketplace?.directListings.buyFromListing(
-                    packListings[tokenId].id,
-                    1
-                );
-                console.log("Transaction result:", txResult);
-            } catch (error) {
-                console.error("Error buying pack:", error);
-            }
+            txResult = await marketplace?.directListings.buyFromListing(
+                packListings[tokenId].id,
+                1
+            )
         } else {
             throw new Error("No valid listing found");
         }
             
         return txResult;
-    }
+    };
 
     const mediaStyle = {
         width: "100%",
